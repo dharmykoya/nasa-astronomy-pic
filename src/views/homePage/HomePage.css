@@ -1,0 +1,26 @@
+.gallery-container {
+  justify-content: center;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  height: auto;
+  margin: 0px;
+}
+
+.action-container {
+  justify-content: space-between;
+  margin: 0px;
+}
+
+.image {
+  height: 60vh;
+}
+
+.description-container {
+  padding: 15px;
+}
+
+@media only screen and (min-width: 992px) {
+  .homepage {
+    margin: 10px 10%;
+  }
+}
