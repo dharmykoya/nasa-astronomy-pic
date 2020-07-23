@@ -1,10 +1,19 @@
 import React from "react";
-import "./App.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useLocation,
+  Link
+} from "react-router-dom";
+import { Provider } from "react-redux";
 import HomePage from "./views/homePage/HomePage";
 import { setupStore } from "./store/reducer";
-import { Provider } from "react-redux";
 import { getFavImages } from "./utils/helper";
 import { toggleFavouriteImage } from "./views/homePage/homepage.action";
+
+import "./App.css";
+import FavouritePage from "./views/favouritesPage/FavouritePage";
 
 const store = setupStore();
 
@@ -19,10 +28,26 @@ if (localStorage.favImages) {
 function App() {
   return (
     <Provider store={store}>
-      <div className="App">
-        <header className="App-header">Nasa Astronomy Pic</header>
-        <HomePage />
-      </div>
+      <Router>
+        <div className="App">
+          <header className="App-header">
+            <Link to="/" className="logo">
+              Nasa Astronomy Pic
+            </Link>
+            <div className="ml-auto">
+              <Link to="/favourites">Favourites</Link>
+            </div>
+          </header>
+          <Switch>
+            <Route path="/" exact>
+              <HomePage />
+            </Route>
+            <Route path="/favourites" exact>
+              <FavouritePage />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     </Provider>
   );
 }
