@@ -19,6 +19,14 @@
   padding: 15px;
 }
 
+.loader-container {
+  max-width: 100%;
+  min-width: 316px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media only screen and (min-width: 992px) {
   .homepage {
     margin: 10px 10%;
