@@ -12,6 +12,7 @@ import Signup from "./views/signup/Signup";
 import Navbar from "./components/navbar/Navbar";
 import Login from "./views/login/Login";
 import { loginSuccess } from "./views/login/login.action";
+import PrivateRoute from "./views/privateRoute/PrivateRoute";
 
 const store = setupStore();
 
@@ -37,22 +38,14 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
-          {/* <header className="App-header">
-            <Link to="/" className="logo">
-              Nasa Astronomy Pic
-            </Link>
-            <div className="ml-auto">
-              <Link to="/favourites">Favourites</Link>
-            </div>
-          </header> */}
           <Navbar />
           <Switch>
             <Route path="/" exact>
               <HomePage />
             </Route>
-            <Route path="/favourites" exact>
+            <PrivateRoute path="/favourites" exact>
               <FavouritePage />
-            </Route>
+            </PrivateRoute>
             <Route path="/signup" exact>
               <Signup />
             </Route>

@@ -2,20 +2,21 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { userLogout } from "../../views/login/login.action";
+
+import "./Navbar.css";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector(state => state.login);
 
   const dispatch = useDispatch();
 
-  const location = useLocation();
-  const { pathname } = location;
-
-  const onLogoutHandler = () => {
-    // dispatch(logout());
+  const logoutHandler = () => {
+    localStorage.removeItem("user");
+    dispatch(userLogout());
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark nasa-nav">
       <Link to="/" className="logo">
         Nasa Astronomy Pic
       </Link>
@@ -32,7 +33,7 @@ const Navbar = () => {
       </button>
       <div className="collapse navbar-collapse" id="navbarText">
         {isAuthenticated ? (
-          <ul className="navbar-nav mr-auto">
+          <ul className="navbar-nav ml-auto">
             <li className="nav-item active">
               <Link to="/favourites" className="nav-link logo">
                 Favourites
@@ -46,20 +47,24 @@ const Navbar = () => {
         {isAuthenticated ? (
           <>
             {" "}
-            <Link to="/logout" className="nav-link logo">
+            <Link
+              to="/signin"
+              className="nav-link logo"
+              onClick={logoutHandler}
+            >
               Logout
             </Link>
             <span class="navbar-text">{user.email}</span>{" "}
           </>
         ) : (
-          <>
+          <div className="ml-auto row">
             <Link to="/signup" className="nav-link logo">
               Signup
             </Link>
             <Link to="/signin" className="nav-link logo">
               Login
             </Link>
-          </>
+          </div>
         )}
       </div>
     </nav>
