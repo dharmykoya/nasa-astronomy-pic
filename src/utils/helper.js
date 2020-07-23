@@ -37,3 +37,14 @@ export const getFavImages = date => {
   }
   return images;
 };
+
+export const checkAuth = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) return false;
+  return true;
+};
+
+export const getUser = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  return user;
+};

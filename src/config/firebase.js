@@ -13,7 +13,6 @@ const {
   REACT_APP_MEASURE_ID
 } = process.env;
 
-console.log(23, REACT_APP_PROJECT_ID);
 const config = {
   apiKey: REACT_APP_APIKEY,
   authDomain: REACT_APP_AUTHDOMAIN,
