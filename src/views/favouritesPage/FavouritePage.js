@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "../../components/button/Button";
 
 import "./FavouritePage.css";
 import ImageCard from "../../components/imageCard/ImageCard";
-import { deleteAllFav } from "../homePage/homepage.action";
+import { deleteAllFav, getFavourites } from "../homePage/homepage.action";
 
 const FavouritePage = () => {
   const dispatch = useDispatch();
 
   const { favouriteImages } = useSelector(state => state.image);
+
+  useEffect(() => {
+    dispatch(getFavourites());
+  }, [dispatch]);
 
   const deleteAllFavouritesHandler = () => {
     dispatch(deleteAllFav());
@@ -18,7 +22,8 @@ const FavouritePage = () => {
   let displayImages = (
     <div className="text-center">No Favourite picture is available</div>
   );
-  if (favouriteImages && favouriteImages !== null) {
+
+  if (favouriteImages !== null || favouriteImages) {
     displayImages = favouriteImages.map((image, index) => (
       <ImageCard key={index} image={image.url} title={image.title} />
     ));
