@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
-import { getImage } from "./homepage.action";
+import { getImage, toggleFavourite } from "./homepage.action";
 import PropTypes from "prop-types";
 import Arrow from "../../components/arrow/Arrow";
-import Button from "../../components/button/Button";
 
 import "./HomePage.css";
 import Loader from "../../components/loader/Loader";
@@ -13,13 +11,16 @@ import {
   getNextDayDate,
   getTodayDate
 } from "../../utils/helper";
+import Icon from "../../components/icon/Icon";
 
 const HomePage = props => {
   const [selectedDate, setSelectedDate] = useState(getPrevDayDate);
 
   const dispatch = useDispatch();
 
-  const { loading, imageDetails, error } = useSelector(state => state.image);
+  const { loading, imageDetails, error, favouriteImages } = useSelector(
+    state => state.image
+  );
 
   useEffect(() => {
     dispatch(getImage());
@@ -34,7 +35,6 @@ const HomePage = props => {
   const navigatePrevDayHandler = () => {
     const prevDay = getPrevDayDate(selectedDate);
     setSelectedDate(prevDay);
-    console.log("prev", prevDay);
     dispatch(getImage(selectedDate));
   };
 
@@ -47,18 +47,33 @@ const HomePage = props => {
     dispatch(getImage(selectedDate));
   };
 
+  const toggleFavoriteHandler = () => {
+    dispatch(toggleFavourite(selectedDate));
+  };
+
   let imageTitle = "...";
   let image;
   let imageDescription = "...";
   let loader = <Loader />;
+  let invalidImage;
   if (!loading && imageDetails !== null) {
     imageTitle = imageDetails.title;
     image = imageDetails.url;
+
+    if (image.includes("youtube")) {
+      invalidImage = "invalid Image";
+    }
+
     imageDescription = imageDetails.explanation;
   }
 
   if (error) {
     loader = error;
+  }
+
+  let isFavourited;
+  if (favouriteImages) {
+    isFavourited = favouriteImages.find(image => image.date === selectedDate);
   }
 
   return (
@@ -68,8 +83,10 @@ const HomePage = props => {
         <Arrow side="left" handleClick={navigatePrevDayHandler} />
         <div>
           <div>
-            {loading || error ? (
-              <div className="image loader-container">{loader}</div>
+            {loading || error || invalidImage ? (
+              <div className="image loader-container">
+                {loader || invalidImage}
+              </div>
             ) : (
               <img src={image} alt="current" className="image img-fluid" />
               // <img
@@ -80,7 +97,22 @@ const HomePage = props => {
             )}
           </div>
           <div className="row action-container mt-3">
-            <Button customClassName="btn-danger">Set favourite</Button>
+            {isFavourited ? (
+              <Icon
+                customClass="fas fa-heart favourite"
+                handleClick={toggleFavoriteHandler}
+              />
+            ) : (
+              <Icon
+                handleClick={toggleFavoriteHandler}
+                customClass="far fa-heart favourite"
+              />
+            )}
+            {/* <Icon
+              handleClick={toggleFavoriteHandler}
+              customClass="far fa-heart favourite"
+            /> */}
+            {/* <Icon customClass="fas fa-heart favourite" /> */}
             <input
               type="date"
               onChange={selectDatehandler}

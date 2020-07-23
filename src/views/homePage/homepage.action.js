@@ -2,9 +2,10 @@ import axios from "axios";
 import {
   GET_IMAGE_START,
   GET_IMAGE_SUCCESS,
-  GET_IMAGE_FAILED
+  GET_IMAGE_FAILED,
+  TOGGLE_FAVORITE_IMAGE
 } from "../../store/actionTypes";
-import { getPrevDayDate } from "../../utils/helper";
+import { getPrevDayDate, findImage } from "../../utils/helper";
 
 const getImageStart = () => {
   return {
@@ -23,6 +24,13 @@ const getImageFailed = error => {
   return {
     type: GET_IMAGE_FAILED,
     error
+  };
+};
+
+export const toggleFavouriteImage = images => {
+  return {
+    type: TOGGLE_FAVORITE_IMAGE,
+    images
   };
 };
 
@@ -46,6 +54,31 @@ export const getImage = date => async dispatch => {
   } catch (error) {
     const { data } = error.response;
 
+    dispatch(getImageFailed(data));
+  }
+};
+
+export const toggleFavourite = date => async dispatch => {
+  try {
+    const image = findImage(date);
+
+    const favImages = JSON.parse(localStorage.getItem("favImages")) || [];
+
+    const isFavourited = favImages.filter(image => image.date === date);
+
+    let newFavImages;
+
+    if (isFavourited.length > 0) {
+      newFavImages = favImages.filter(image => image.date !== date);
+    } else {
+      newFavImages = [...favImages, image];
+    }
+
+    localStorage.setItem("favImages", JSON.stringify(newFavImages));
+
+    dispatch(toggleFavouriteImage(newFavImages));
+  } catch (error) {
+    const { data } = error.response;
     dispatch(getImageFailed(data));
   }
 };

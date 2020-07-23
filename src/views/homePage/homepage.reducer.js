@@ -2,12 +2,14 @@ import { updateObject } from "../../utils/helper";
 import {
   GET_IMAGE_START,
   GET_IMAGE_SUCCESS,
-  GET_IMAGE_FAILED
+  GET_IMAGE_FAILED,
+  TOGGLE_FAVORITE_IMAGE
 } from "../../store/actionTypes";
 
 const initialState = {
   loading: false,
   imageDetails: null,
+  favouriteImages: null,
   error: null
 };
 
@@ -32,6 +34,13 @@ const getImageFailed = (state, action) => {
   });
 };
 
+const toggleFavouriteImage = (state, action) => {
+  return updateObject(state, {
+    favouriteImages: action.images,
+    loading: false
+  });
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_IMAGE_START:
@@ -40,6 +49,8 @@ export default (state = initialState, action) => {
       return getImageSuccess(state, action);
     case GET_IMAGE_FAILED:
       return getImageFailed(state, action);
+    case TOGGLE_FAVORITE_IMAGE:
+      return toggleFavouriteImage(state, action);
 
     default:
       return state;

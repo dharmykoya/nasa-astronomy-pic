@@ -19,3 +19,21 @@ export const getPrevDayDate = date =>
 
 export const getNextDayDate = date =>
   moment(date).add(1, "day").format("YYYY-MM-DD");
+
+export const findImage = date => {
+  const images = JSON.parse(localStorage.getItem("images")) || {};
+
+  if (!images[date]) {
+    return false;
+  }
+  return images[date];
+};
+
+export const getFavImages = date => {
+  const images = JSON.parse(localStorage.getItem("favImages")) || [];
+
+  if (images.length === 0) {
+    return false;
+  }
+  return images;
+};
