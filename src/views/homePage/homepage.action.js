@@ -1,11 +1,19 @@
 import axios from "axios";
+import CircularJSON from "circular-json";
 import {
   GET_IMAGE_START,
   GET_IMAGE_SUCCESS,
   GET_IMAGE_FAILED,
-  TOGGLE_FAVORITE_IMAGE
+  TOGGLE_FAVORITE_IMAGE,
+  GET_ALL_FAV_IMAGES
 } from "../../store/actionTypes";
-import { getPrevDayDate, findImage } from "../../utils/helper";
+import {
+  getPrevDayDate,
+  findImage,
+  getUser,
+  getFavImages
+} from "../../utils/helper";
+import { firestore } from "../../config/firebase";
 
 const getImageStart = () => {
   return {
@@ -24,6 +32,13 @@ const getImageFailed = error => {
   return {
     type: GET_IMAGE_FAILED,
     error
+  };
+};
+
+const getAllFavourites = favImages => {
+  return {
+    type: GET_ALL_FAV_IMAGES,
+    favImages
   };
 };
 
@@ -58,38 +73,79 @@ export const getImage = date => async dispatch => {
   }
 };
 
+export const getFavourites = () => async dispatch => {
+  try {
+    const user = getUser();
+
+    const reference = firestore.doc(`users/${user.uid}`);
+
+    const result = [];
+
+    const userFavourites = await firestore
+      .collection("favourites")
+      .where("user", "==", reference)
+      .get();
+
+    userFavourites.forEach(doc => {
+      result.push({ ...doc.data(), id: doc.id });
+    });
+
+    let favImages;
+    if (result.length) {
+      favImages = CircularJSON.stringify(result);
+      localStorage.setItem("favImages", favImages);
+
+      dispatch(getAllFavourites(result));
+    } else {
+      favImages = null;
+
+      dispatch(getAllFavourites(null));
+    }
+  } catch (error) {
+    dispatch(getImageFailed(error.message));
+  }
+};
+
 export const toggleFavourite = date => async dispatch => {
   try {
     const image = findImage(date);
 
     const favImages = JSON.parse(localStorage.getItem("favImages")) || [];
 
-    const isFavourited = favImages.filter(image => image.date === date);
+    const isFavourited = favImages.find(image => image.date === date);
 
-    let newFavImages;
+    const user = getUser();
 
-    if (isFavourited.length > 0) {
-      newFavImages = favImages.filter(image => image.date !== date);
+    const reference = firestore.doc(`users/${user.uid}`);
+
+    if (isFavourited) {
+      await firestore.collection("favourites").doc(isFavourited.id).delete();
     } else {
-      newFavImages = [...favImages, image];
+      await firestore.collection("favourites").add({
+        ...image,
+        user: reference
+      });
     }
-
-    localStorage.setItem("favImages", JSON.stringify(newFavImages));
-
-    dispatch(toggleFavouriteImage(newFavImages));
+    dispatch(getFavourites());
   } catch (error) {
-    const { data } = error.response;
-    dispatch(getImageFailed(data.message));
+    // const { data } = error.response;
+    dispatch(getImageFailed("something went wrong"));
   }
 };
 
 export const deleteAllFav = () => async dispatch => {
   try {
+    const favImages = getFavImages();
+
     localStorage.removeItem("favImages");
 
-    dispatch(toggleFavouriteImage([]));
+    await favImages.forEach(async ({ id }) => {
+      await firestore.collection("favourites").doc(id).delete();
+    });
+
+    dispatch(toggleFavouriteImage(null));
   } catch (error) {
-    const { data } = error.response;
-    dispatch(getImageFailed(data));
+    // const { data } = error.response;
+    dispatch(getImageFailed("something went wrong"));
   }
 };

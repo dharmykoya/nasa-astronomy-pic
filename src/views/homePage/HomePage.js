@@ -54,8 +54,6 @@ const HomePage = props => {
   };
 
   const toggleFavoriteHandler = () => {
-    console.log(34, login.isAuthenticated);
-    console.log(32, signup.isAuthenticated);
     if (login.isAuthenticated || signup.isAuthenticated) {
       dispatch(toggleFavourite(selectedDate));
       return;
@@ -91,6 +89,10 @@ const HomePage = props => {
     isFavourited = favouriteImages.find(image => image.date === selectedDate);
   }
 
+  if (invalidImage) {
+    loader = "";
+  }
+
   return (
     <section className="homepage mt-3">
       <div className="mb-3">{imageTitle}</div>
@@ -104,11 +106,6 @@ const HomePage = props => {
               </div>
             ) : (
               <img src={image} alt="current" className="image img-fluid" />
-              // <img
-              //   src="https://source.unsplash.com/250x182/?concert,party"
-              //   alt="current"
-              //   className="image img-fluid"
-              // />
             )}
           </div>
           <div className="row action-container mt-3">

@@ -3,7 +3,8 @@ import {
   GET_IMAGE_START,
   GET_IMAGE_SUCCESS,
   GET_IMAGE_FAILED,
-  TOGGLE_FAVORITE_IMAGE
+  TOGGLE_FAVORITE_IMAGE,
+  GET_ALL_FAV_IMAGES
 } from "../../store/actionTypes";
 
 const initialState = {
@@ -41,6 +42,13 @@ const toggleFavouriteImage = (state, action) => {
   });
 };
 
+const getAllFavourites = (state, action) => {
+  return updateObject(state, {
+    favouriteImages: action.favImages,
+    loading: false
+  });
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_IMAGE_START:
@@ -51,6 +59,8 @@ export default (state = initialState, action) => {
       return getImageFailed(state, action);
     case TOGGLE_FAVORITE_IMAGE:
       return toggleFavouriteImage(state, action);
+    case GET_ALL_FAV_IMAGES:
+      return getAllFavourites(state, action);
 
     default:
       return state;

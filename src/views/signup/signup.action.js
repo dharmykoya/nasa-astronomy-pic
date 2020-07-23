@@ -37,7 +37,6 @@ export const signupUser = (email, password, history) => async dispatch => {
     dispatch(signupSuccess(user));
     history.push("/favourites");
   } catch (err) {
-    console.log(44, err);
     const error = err.toString();
     dispatch(signupFailed(error));
   }

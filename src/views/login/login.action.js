@@ -35,9 +35,6 @@ export const userLogout = () => {
 export const loginUser = (email, password, history) => async dispatch => {
   try {
     const { user } = await auth.signInWithEmailAndPassword(email, password);
-
-    console.log(77, user);
-
     const newUser = JSON.stringify(user);
 
     localStorage.setItem("user", newUser);
@@ -45,7 +42,6 @@ export const loginUser = (email, password, history) => async dispatch => {
     dispatch(loginSuccess(user));
     history.push("/");
   } catch (err) {
-    console.log(44, err);
     const error = err.toString();
     dispatch(loginFailed(error));
   }
