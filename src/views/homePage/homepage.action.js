@@ -52,9 +52,9 @@ export const getImage = date => async dispatch => {
 
     dispatch(getImageSuccess(data));
   } catch (error) {
-    const { data } = error.response;
+    // const { data } = error.response;
 
-    dispatch(getImageFailed(data));
+    dispatch(getImageFailed("Network/Invalid Image"));
   }
 };
 
@@ -77,6 +77,17 @@ export const toggleFavourite = date => async dispatch => {
     localStorage.setItem("favImages", JSON.stringify(newFavImages));
 
     dispatch(toggleFavouriteImage(newFavImages));
+  } catch (error) {
+    const { data } = error.response;
+    dispatch(getImageFailed(data.message));
+  }
+};
+
+export const deleteAllFav = () => async dispatch => {
+  try {
+    localStorage.removeItem("favImages");
+
+    dispatch(toggleFavouriteImage([]));
   } catch (error) {
     const { data } = error.response;
     dispatch(getImageFailed(data));

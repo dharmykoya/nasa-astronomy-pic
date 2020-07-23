@@ -42,6 +42,7 @@ const HomePage = props => {
     const nextDay = getNextDayDate(selectedDate);
     if (nextDay > getTodayDate()) {
       alert("invalid");
+      return;
     }
     setSelectedDate(nextDay);
     dispatch(getImage(selectedDate));

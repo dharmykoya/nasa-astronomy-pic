@@ -27,8 +27,23 @@
   align-items: center;
 }
 
+.logo {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 @media only screen and (min-width: 992px) {
   .homepage {
     margin: 10px 10%;
+  }
+
+  .image {
+    height: 502px;
+    width: 900px;
+  }
+
+  .App-header {
+    padding-left: 15%;
+    padding-right: 15%;
   }
 }

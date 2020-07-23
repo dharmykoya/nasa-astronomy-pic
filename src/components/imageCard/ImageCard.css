@@ -1,0 +1,8 @@
+.fav-image-error {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  color: red;
+  justify-content: center;
+  height: 300px;
+}

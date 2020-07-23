@@ -1,0 +1,16 @@
+.favourite-container {
+  margin: 0px;
+}
+
+.gallery_product {
+  margin-bottom: 30px;
+}
+
+.fav-image {
+  height: 300px;
+  width: 300px;
+}
+
+.delete-fav {
+  display: block;
+}
