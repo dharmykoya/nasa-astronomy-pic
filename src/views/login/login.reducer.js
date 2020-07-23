@@ -1,7 +1,7 @@
 import {
-  SIGN_UP_START,
-  SIGN_UP_SUCCESS,
-  SIGN_UP_FAIL
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL
 } from "../../store/actionTypes";
 import { updateObject } from "../../utils/helper";
 
@@ -12,13 +12,13 @@ const initialState = {
   isAuthenticated: false
 };
 
-const signupStart = state => {
+const loginStart = state => {
   return updateObject(state, {
     loading: true
   });
 };
 
-const signupSuccess = (state, action) => {
+const loginSuccess = (state, action) => {
   return updateObject(state, {
     user: action.authData,
     loading: false,
@@ -27,7 +27,7 @@ const signupSuccess = (state, action) => {
   });
 };
 
-const signupFail = (state, action) => {
+const loginFail = (state, action) => {
   return updateObject(state, {
     loading: false,
     error: action.authError
@@ -36,14 +36,14 @@ const signupFail = (state, action) => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SIGN_UP_START:
-      return signupStart(state);
+    case LOGIN_START:
+      return loginStart(state);
 
-    case SIGN_UP_SUCCESS:
-      return signupSuccess(state, action);
+    case LOGIN_SUCCESS:
+      return loginSuccess(state, action);
 
-    case SIGN_UP_FAIL:
-      return signupFail(state, action);
+    case LOGIN_FAIL:
+      return loginFail(state, action);
 
     default:
       return state;

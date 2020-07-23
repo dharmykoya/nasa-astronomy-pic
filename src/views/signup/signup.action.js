@@ -5,20 +5,20 @@ import {
 } from "../../store/actionTypes";
 import { auth } from "../../config/firebase";
 
-export const loginStart = () => {
+export const signupStart = () => {
   return {
     type: SIGN_UP_START
   };
 };
 
-export const loginSuccess = authData => {
+export const signupSuccess = authData => {
   return {
     type: SIGN_UP_SUCCESS,
     authData
   };
 };
 
-export const loginFailed = authError => {
+export const signupFailed = authError => {
   return {
     type: SIGN_UP_FAIL,
     authError
@@ -27,17 +27,18 @@ export const loginFailed = authError => {
 
 export const signupUser = (email, password, history) => async dispatch => {
   try {
+    dispatch(signupStart());
     const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
     const newUser = JSON.stringify(user);
 
     localStorage.setItem("user", newUser);
 
-    dispatch(loginSuccess(user));
+    dispatch(signupSuccess(user));
     history.push("/favourites");
   } catch (err) {
     console.log(44, err);
     const error = err.toString();
-    dispatch(loginFailed(error));
+    dispatch(signupFailed(error));
   }
 };
