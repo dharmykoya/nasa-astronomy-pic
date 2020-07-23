@@ -1,3 +1,7 @@
 .favourite {
   font-size: 25px;
 }
+
+i {
+  cursor: pointer;
+}
