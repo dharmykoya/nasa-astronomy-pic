@@ -1,7 +1,8 @@
 import {
   LOGIN_START,
   LOGIN_SUCCESS,
-  LOGIN_FAIL
+  LOGIN_FAIL,
+  USER_LOGOUT
 } from "../../store/actionTypes";
 import { updateObject } from "../../utils/helper";
 
@@ -34,6 +35,16 @@ const loginFail = (state, action) => {
   });
 };
 
+const logout = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: false,
+    user: null,
+    isAuthenticated: false,
+    token: null
+  });
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_START:
@@ -44,6 +55,9 @@ export default (state = initialState, action) => {
 
     case LOGIN_FAIL:
       return loginFail(state, action);
+
+    case USER_LOGOUT:
+      return logout(state);
 
     default:
       return state;

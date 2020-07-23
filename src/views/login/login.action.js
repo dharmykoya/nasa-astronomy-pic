@@ -1,7 +1,8 @@
 import {
   LOGIN_START,
   LOGIN_SUCCESS,
-  LOGIN_FAIL
+  LOGIN_FAIL,
+  USER_LOGOUT
 } from "../../store/actionTypes";
 import { auth } from "../../config/firebase";
 
@@ -25,6 +26,12 @@ export const loginFailed = authError => {
   };
 };
 
+export const userLogout = () => {
+  return {
+    type: USER_LOGOUT
+  };
+};
+
 export const loginUser = (email, password, history) => async dispatch => {
   try {
     const { user } = await auth.signInWithEmailAndPassword(email, password);
@@ -36,7 +43,7 @@ export const loginUser = (email, password, history) => async dispatch => {
     localStorage.setItem("user", newUser);
 
     dispatch(loginSuccess(user));
-    history.push("/favourites");
+    history.push("/");
   } catch (err) {
     console.log(44, err);
     const error = err.toString();

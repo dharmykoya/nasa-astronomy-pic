@@ -12,15 +12,20 @@ import {
   getTodayDate
 } from "../../utils/helper";
 import Icon from "../../components/icon/Icon";
+import { useHistory } from "react-router-dom";
 
 const HomePage = props => {
   const [selectedDate, setSelectedDate] = useState(getPrevDayDate);
 
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   const { loading, imageDetails, error, favouriteImages } = useSelector(
     state => state.image
   );
+
+  const { login, signup } = useSelector(state => state);
 
   useEffect(() => {
     dispatch(getImage());
@@ -49,7 +54,16 @@ const HomePage = props => {
   };
 
   const toggleFavoriteHandler = () => {
-    dispatch(toggleFavourite(selectedDate));
+    console.log(34, login.isAuthenticated);
+    console.log(32, signup.isAuthenticated);
+    if (login.isAuthenticated || signup.isAuthenticated) {
+      dispatch(toggleFavourite(selectedDate));
+      return;
+    }
+    history.push({
+      pathname: "/signin",
+      state: { from: history.location.pathname }
+    });
   };
 
   let imageTitle = "...";
