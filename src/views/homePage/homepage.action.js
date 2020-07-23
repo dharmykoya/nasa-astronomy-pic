@@ -37,9 +37,15 @@ export const getImage = date => async dispatch => {
     const { data } = await axios.get(
       `https://api.nasa.gov/planetary/apod?api_key=${process.env.REACT_APP_NASA_KEY}&date=${date}`
     );
+
+    const images = JSON.parse(localStorage.getItem("images")) || {};
+    images[date] = data;
+    localStorage.setItem("images", JSON.stringify(images));
+
     dispatch(getImageSuccess(data));
   } catch (error) {
     const { data } = error.response;
-    dispatch(getImageFailed(data.msg));
+
+    dispatch(getImageFailed(data));
   }
 };

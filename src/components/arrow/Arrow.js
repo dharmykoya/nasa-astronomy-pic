@@ -4,16 +4,17 @@ import PropTypes from "prop-types";
 import "./Arrow.css";
 
 const Arrow = props => {
-  const { side } = props;
+  const { side, handleClick } = props;
   return (
-    <div className="navigate-btn">
+    <div className="navigate-btn" onClick={handleClick}>
       <i className={`fas fa-chevron-${side}`} />
     </div>
   );
 };
 
 Arrow.propTypes = {
-  side: PropTypes.string
+  side: PropTypes.string,
+  handleClick: PropTypes.func
 };
 
 export default Arrow;
