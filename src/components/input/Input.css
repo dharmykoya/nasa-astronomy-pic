@@ -1,0 +1,24 @@
+.auth-container input {
+  border: none;
+  border-bottom: 1px solid #0e163d;
+  border-radius: 0;
+}
+
+.auth-input {
+  margin: 0 auto;
+  font-size: 0.8rem;
+}
+
+input.form-control:focus,
+button.btn:focus {
+  border-color: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

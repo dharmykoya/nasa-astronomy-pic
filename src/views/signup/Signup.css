@@ -1,0 +1,20 @@
+.auth-container {
+  padding: 10px;
+  margin: 50px auto;
+  width: 340px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 25px;
+}
+
+.auth-button-container {
+  margin: 2em auto 0;
+  width: 100%;
+}
+
+.auth-question {
+  font-size: 0.9rem;
+}

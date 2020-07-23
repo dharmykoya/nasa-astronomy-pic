@@ -2,3 +2,7 @@
   align-self: center;
   font-size: 35px;
 }
+
+.navigate-btn {
+  cursor: pointer;
+}

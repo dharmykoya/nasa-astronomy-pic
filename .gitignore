@@ -7,7 +7,7 @@
 .env
 # testing
 /coverage
-
+txt
 # production
 /build
 

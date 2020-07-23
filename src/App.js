@@ -8,6 +8,7 @@ import { toggleFavouriteImage } from "./views/homePage/homepage.action";
 
 import "./App.css";
 import FavouritePage from "./views/favouritesPage/FavouritePage";
+import Signup from "./views/signup/Signup";
 
 const store = setupStore();
 
@@ -38,6 +39,9 @@ function App() {
             </Route>
             <Route path="/favourites" exact>
               <FavouritePage />
+            </Route>
+            <Route path="/signup" exact>
+              <Signup />
             </Route>
           </Switch>
         </div>
