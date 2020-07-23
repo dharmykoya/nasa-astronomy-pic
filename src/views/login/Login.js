@@ -11,8 +11,7 @@ import { loginUser } from "./login.action";
 const Login = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -25,8 +24,6 @@ const Login = props => {
       setEmail(inputValue);
     } else if (inputName === "password") {
       setPassword(inputValue);
-    } else if (inputName === "confirmPassword") {
-      setConfirmPassword(inputValue);
     }
     return;
   };
@@ -81,6 +78,8 @@ const Login = props => {
   );
 };
 
-Login.propTypes = {};
+Login.propTypes = {
+  loginUser: PropTypes.func
+};
 
 export default Login;

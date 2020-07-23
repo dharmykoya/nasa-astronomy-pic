@@ -12,7 +12,7 @@ const Signup = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -92,6 +92,8 @@ const Signup = props => {
   );
 };
 
-Signup.propTypes = {};
+Signup.propTypes = {
+  signupUser: PropTypes.func
+};
 
 export default Signup;
