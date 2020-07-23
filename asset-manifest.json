@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/nasa-astronomy-pic/static/css/main.35bc2abd.chunk.css",
-    "main.js": "/nasa-astronomy-pic/static/js/main.45e42407.chunk.js",
-    "main.js.map": "/nasa-astronomy-pic/static/js/main.45e42407.chunk.js.map",
+    "main.js": "/nasa-astronomy-pic/static/js/main.7fb4fc27.chunk.js",
+    "main.js.map": "/nasa-astronomy-pic/static/js/main.7fb4fc27.chunk.js.map",
     "runtime-main.js": "/nasa-astronomy-pic/static/js/runtime-main.bbacc36c.js",
     "runtime-main.js.map": "/nasa-astronomy-pic/static/js/runtime-main.bbacc36c.js.map",
     "static/js/2.d4234dff.chunk.js": "/nasa-astronomy-pic/static/js/2.d4234dff.chunk.js",
     "static/js/2.d4234dff.chunk.js.map": "/nasa-astronomy-pic/static/js/2.d4234dff.chunk.js.map",
     "index.html": "/nasa-astronomy-pic/index.html",
-    "precache-manifest.abdb11a1c07148bc59724933ffcf5f3d.js": "/nasa-astronomy-pic/precache-manifest.abdb11a1c07148bc59724933ffcf5f3d.js",
+    "precache-manifest.71b390e4ff4b4a212cc10abf2608e707.js": "/nasa-astronomy-pic/precache-manifest.71b390e4ff4b4a212cc10abf2608e707.js",
     "service-worker.js": "/nasa-astronomy-pic/service-worker.js",
     "static/css/main.35bc2abd.chunk.css.map": "/nasa-astronomy-pic/static/css/main.35bc2abd.chunk.css.map",
     "static/js/2.d4234dff.chunk.js.LICENSE.txt": "/nasa-astronomy-pic/static/js/2.d4234dff.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.bbacc36c.js",
     "static/js/2.d4234dff.chunk.js",
     "static/css/main.35bc2abd.chunk.css",
-    "static/js/main.45e42407.chunk.js"
+    "static/js/main.7fb4fc27.chunk.js"
   ]
 }

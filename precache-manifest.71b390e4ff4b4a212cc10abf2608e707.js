@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d3b05be436b6ff248b9363e5b159a03b",
+    "revision": "94bf12cc0e84a6f8a44fd236e1030958",
     "url": "/nasa-astronomy-pic/index.html"
   },
   {
-    "revision": "73846bf06387341c967f",
+    "revision": "36f0da83aeb3053e620b",
     "url": "/nasa-astronomy-pic/static/css/main.35bc2abd.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nasa-astronomy-pic/static/js/2.d4234dff.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "73846bf06387341c967f",
-    "url": "/nasa-astronomy-pic/static/js/main.45e42407.chunk.js"
+    "revision": "36f0da83aeb3053e620b",
+    "url": "/nasa-astronomy-pic/static/js/main.7fb4fc27.chunk.js"
   },
   {
     "revision": "9e80f7e705307b70fd29",
