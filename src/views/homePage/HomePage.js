@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import { getImage, toggleFavourite } from "./homepage.action";
 import PropTypes from "prop-types";
 import Arrow from "../../components/arrow/Arrow";
@@ -105,7 +106,8 @@ const HomePage = props => {
       </div>
       {showInvalidDate ? (
         <div className="alert alert-danger invalid-date">
-          Date must be between Jun 16, 1995 and Jul 24, 2020.
+          Date must be between Jun 16, 1995 and{" "}
+          {moment(selectedDate).format("MMMM Do, YYYY")}.
         </div>
       ) : (
         ""
