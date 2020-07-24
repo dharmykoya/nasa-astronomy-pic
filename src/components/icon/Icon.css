@@ -5,3 +5,7 @@
 i {
   cursor: pointer;
 }
+
+.filled-heart {
+  color: #dc4b0e;
+}

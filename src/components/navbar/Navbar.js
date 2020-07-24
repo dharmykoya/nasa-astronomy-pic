@@ -16,12 +16,12 @@ const Navbar = () => {
     dispatch(userLogout());
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark nasa-nav">
+    <nav className="navbar navbar-expand-lg nasa-nav">
       <Link to="/" className="logo">
         Nasa Astronomy Pic
       </Link>
       <button
-        className="navbar-toggler"
+        className="navbar-toggler bg-light"
         type="button"
         data-toggle="collapse"
         data-target="#navbarText"
@@ -54,7 +54,7 @@ const Navbar = () => {
             >
               Logout
             </Link>
-            <span className="navbar-text">{user.email}</span>{" "}
+            <span className="navbar-text user-email">{user.email}</span>{" "}
           </>
         ) : (
           <div className="ml-auto row">

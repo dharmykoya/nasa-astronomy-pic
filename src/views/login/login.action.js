@@ -41,8 +41,7 @@ export const loginUser = (email, password, history) => async dispatch => {
 
     dispatch(loginSuccess(user));
     history.push("/");
-  } catch (err) {
-    const error = err.toString();
-    dispatch(loginFailed(error));
+  } catch (error) {
+    dispatch(loginFailed("invalid credentials"));
   }
 };

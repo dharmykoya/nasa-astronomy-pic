@@ -1,3 +1,12 @@
+.nasa-nav {
+  background-color: #dc4b0e;
+}
+
+.user-email {
+  color: #000000;
+  font-weight: 800;
+}
+
 @media only screen and (min-width: 992px) {
   .nasa-nav {
     padding: 0.5rem 4rem;
