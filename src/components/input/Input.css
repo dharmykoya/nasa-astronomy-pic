@@ -22,3 +22,16 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.date-input:focus {
+  border-color: #dc4b0e;
+  -webkit-box-shadow: #dc4b0e;
+  box-shadow: #dc4b0e;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.date-input::-webkit-outer-spin-button,
+.date-input::-webkit-inner-spin-button {
+  -webkit-appearance: #dc4b0e;
+  margin: 0;
+}
