@@ -26,6 +26,17 @@
   color: #61dafb;
 }
 
+a {
+  text-decoration: none !important;
+}
+
+a.logo:hover {
+  color: white;
+}
+
+.no-match {
+  margin-top: 20%;
+}
 /* 
 @keyframes App-logo-spin {
   from {

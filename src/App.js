@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useLocation
+} from "react-router-dom";
 import { Provider } from "react-redux";
 import HomePage from "./views/homePage/HomePage";
 import { setupStore } from "./store/reducer";
@@ -33,6 +38,21 @@ if (localStorage.favImages) {
   }
 }
 
+function NoMatch() {
+  let location = useLocation();
+
+  return (
+    <div className="no-match">
+      <h3>
+        No match for
+        <code>{location.pathname}</code>
+        <br />
+        Error 404
+      </h3>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Provider store={store}>
@@ -51,6 +71,9 @@ function App() {
             </Route>
             <Route path="/signin" exact>
               <Login />
+            </Route>
+            <Route path="*">
+              <NoMatch />
             </Route>
           </Switch>
         </div>

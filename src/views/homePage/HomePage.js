@@ -46,7 +46,6 @@ const HomePage = props => {
   const navigateNextDayHandler = () => {
     const nextDay = getNextDayDate(selectedDate);
     if (nextDay > getTodayDate()) {
-      alert("invalid");
       return;
     }
     setSelectedDate(nextDay);
@@ -95,10 +94,12 @@ const HomePage = props => {
 
   return (
     <section className="homepage mt-3">
-      <div className="mb-3">{imageTitle}</div>
+      <div className="mb-3">
+        <h3>{imageTitle}</h3>
+      </div>
       <div className="row gallery-container">
         <Arrow side="left" handleClick={navigatePrevDayHandler} />
-        <div>
+        <div className="img-cont">
           <div>
             {loading || error || invalidImage ? (
               <div className="image loader-container">
@@ -111,7 +112,7 @@ const HomePage = props => {
           <div className="row action-container mt-3">
             {isFavourited ? (
               <Icon
-                customClass="fas fa-heart favourite"
+                customClass="fas fa-heart favourite filled-heart"
                 handleClick={toggleFavoriteHandler}
               />
             ) : (
@@ -120,11 +121,6 @@ const HomePage = props => {
                 customClass="far fa-heart favourite"
               />
             )}
-            {/* <Icon
-              handleClick={toggleFavoriteHandler}
-              customClass="far fa-heart favourite"
-            /> */}
-            {/* <Icon customClass="fas fa-heart favourite" /> */}
             <input
               type="date"
               onChange={selectDatehandler}

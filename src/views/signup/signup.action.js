@@ -4,6 +4,7 @@ import {
   SIGN_UP_FAIL
 } from "../../store/actionTypes";
 import { auth } from "../../config/firebase";
+import { loginSuccess } from "../login/login.action";
 
 export const signupStart = () => {
   return {
@@ -35,9 +36,14 @@ export const signupUser = (email, password, history) => async dispatch => {
     localStorage.setItem("user", newUser);
 
     dispatch(signupSuccess(user));
-    history.push("/favourites");
+    dispatch(loginSuccess(user));
+    history.push("/");
   } catch (err) {
-    const error = err.toString();
+    let error = "something went wrong";
+
+    if (err["message"]) {
+      error = err.message;
+    }
     dispatch(signupFailed(error));
   }
 };

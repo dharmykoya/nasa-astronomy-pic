@@ -4,15 +4,18 @@ import Input from "../../components/input/Input";
 
 import "./Signup.css";
 import Button from "../../components/button/Button";
-import { Link, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useHistory, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { signupUser } from "./signup.action";
 
 const Signup = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  // const [error, setError] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+
+  const { error } = useSelector(state => state.signup);
+  const { isAuthenticated } = useSelector(state => state.login);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,8 +36,16 @@ const Signup = props => {
 
   const handleSignup = event => {
     event.preventDefault();
+    if (password !== confirmPassword) {
+      setCheckPassword("password and confirm password must match");
+      return;
+    }
     dispatch(signupUser(email, password, history));
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <section>
@@ -44,12 +55,13 @@ const Signup = props => {
           <div>
             <p className="small-info-text auth-question">
               Have you already registered?
-              <Link className="font-bold ml-1" to="/signin">
+              <Link className="font-bold ml-1 info-text" to="/signin">
                 Sign in here
               </Link>
             </p>
           </div>
         </div>
+        {error ? <div className="alert alert-danger">{error}</div> : ""}
         <form>
           <Input
             type="text"
@@ -80,7 +92,11 @@ const Signup = props => {
             handleChange={inputChangeHandler}
             value={confirmPassword}
           />
-
+          {confirmPassword ? (
+            <div className="text-danger check-pass">{checkPassword}</div>
+          ) : (
+            ""
+          )}
           <div className="auth-button-container">
             <Button customClassName="auth-button" clickHandler={handleSignup}>
               Sign me up

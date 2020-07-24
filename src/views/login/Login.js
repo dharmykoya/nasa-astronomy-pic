@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useHistory, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 
@@ -11,7 +11,8 @@ import { loginUser } from "./login.action";
 const Login = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [error, setError] = useState("");
+
+  const { error, isAuthenticated } = useSelector(state => state.login);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -32,6 +33,10 @@ const Login = props => {
     event.preventDefault();
     dispatch(loginUser(email, password, history));
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
   return (
     <section>
       <div className="auth-container col-md-3">
@@ -40,12 +45,14 @@ const Login = props => {
           <div>
             <p className="small-info-text auth-question">
               New user?
-              <Link className="font-bold ml-1" to="/signup">
+              <Link className="font-bold ml-1 info-text" to="/signup">
                 Sign up here
               </Link>
             </p>
           </div>
         </div>
+        {error ? <div className="alert alert-danger">{error}</div> : ""}
+
         <form>
           <Input
             type="text"
