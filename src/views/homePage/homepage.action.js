@@ -8,7 +8,6 @@ import {
   GET_ALL_FAV_IMAGES
 } from "../../store/actionTypes";
 import {
-  getPrevDayDate,
   findImage,
   getUser,
   getFavImages
@@ -51,10 +50,6 @@ export const toggleFavouriteImage = images => {
 
 export const getImage = date => async dispatch => {
   try {
-    if (date === "" || date === undefined) {
-      date = getPrevDayDate();
-    }
-
     dispatch(getImageStart());
 
     const { data } = await axios.get(
@@ -68,6 +63,7 @@ export const getImage = date => async dispatch => {
     dispatch(getImageSuccess(data));
   } catch (error) {
     // const { data } = error.response;
+    console.log(23, error);
 
     dispatch(getImageFailed("Network/Invalid Image"));
   }
