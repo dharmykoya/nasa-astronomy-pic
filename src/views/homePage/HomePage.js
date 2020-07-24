@@ -29,6 +29,7 @@ const HomePage = props => {
   const { login, signup } = useSelector(state => state);
 
   useEffect(() => {
+    console.log(23, selectedDate);
     dispatch(getImage(selectedDate));
   }, [dispatch, selectedDate]);
 
@@ -45,7 +46,7 @@ const HomePage = props => {
     }
     setShowInvalidDate(false);
     setSelectedDate(prevDay);
-    dispatch(getImage(selectedDate));
+    dispatch(getImage(prevDay));
   };
 
   const navigateNextDayHandler = () => {
@@ -56,7 +57,7 @@ const HomePage = props => {
     }
     setShowInvalidDate(false);
     setSelectedDate(nextDay);
-    dispatch(getImage(selectedDate));
+    dispatch(getImage(nextDay));
   };
 
   const toggleFavoriteHandler = () => {
@@ -138,6 +139,7 @@ const HomePage = props => {
               onChange={selectDatehandler}
               value={selectedDate}
               max={getTodayDate()}
+              className="date-input"
             />
           </div>
         </div>
