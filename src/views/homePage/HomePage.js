@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import { getImage, toggleFavourite } from "./homepage.action";
 import PropTypes from "prop-types";
 import Arrow from "../../components/arrow/Arrow";
@@ -29,6 +30,7 @@ const HomePage = props => {
   const { login, signup } = useSelector(state => state);
 
   useEffect(() => {
+    console.log(23, selectedDate);
     dispatch(getImage(selectedDate));
   }, [dispatch, selectedDate]);
 
@@ -45,7 +47,7 @@ const HomePage = props => {
     }
     setShowInvalidDate(false);
     setSelectedDate(prevDay);
-    dispatch(getImage(selectedDate));
+    dispatch(getImage(prevDay));
   };
 
   const navigateNextDayHandler = () => {
@@ -56,7 +58,7 @@ const HomePage = props => {
     }
     setShowInvalidDate(false);
     setSelectedDate(nextDay);
-    dispatch(getImage(selectedDate));
+    dispatch(getImage(nextDay));
   };
 
   const toggleFavoriteHandler = () => {
@@ -104,7 +106,8 @@ const HomePage = props => {
       </div>
       {showInvalidDate ? (
         <div className="alert alert-danger invalid-date">
-          Date must be between Jun 16, 1995 and Jul 24, 2020.
+          Date must be between Jun 16, 1995 and{" "}
+          {moment(selectedDate).format("MMMM Do, YYYY")}.
         </div>
       ) : (
         ""
@@ -138,6 +141,7 @@ const HomePage = props => {
               onChange={selectDatehandler}
               value={selectedDate}
               max={getTodayDate()}
+              className="date-input"
             />
           </div>
         </div>
