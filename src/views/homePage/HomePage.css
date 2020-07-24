@@ -17,6 +17,7 @@
 
 .description-container {
   padding: 15px;
+  border-radius: 10px;
 }
 
 .loader-container {
@@ -30,6 +31,11 @@
 .logo {
   color: #ffffff;
   text-decoration: none;
+}
+
+.invalid-date {
+  width: 80%;
+  margin: 10px auto;
 }
 
 @media only screen and (min-width: 992px) {

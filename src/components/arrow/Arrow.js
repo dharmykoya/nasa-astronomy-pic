@@ -7,7 +7,7 @@ const Arrow = props => {
   const { side, handleClick } = props;
   return (
     <div className="navigate-btn" onClick={handleClick}>
-      <i className={`fas fa-chevron-${side}`} />
+      <i className={`fas fa-chevron-${side} orange`} />
     </div>
   );
 };

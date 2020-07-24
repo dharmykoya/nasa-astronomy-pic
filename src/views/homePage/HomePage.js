@@ -16,6 +16,7 @@ import { useHistory } from "react-router-dom";
 
 const HomePage = props => {
   const [selectedDate, setSelectedDate] = useState(getPrevDayDate);
+  const [showInvalidDate, setShowInvalidDate] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -28,8 +29,8 @@ const HomePage = props => {
   const { login, signup } = useSelector(state => state);
 
   useEffect(() => {
-    dispatch(getImage());
-  }, [dispatch]);
+    dispatch(getImage(selectedDate));
+  }, [dispatch, selectedDate]);
 
   const selectDatehandler = e => {
     const date = e.target.value;
@@ -39,6 +40,10 @@ const HomePage = props => {
 
   const navigatePrevDayHandler = () => {
     const prevDay = getPrevDayDate(selectedDate);
+    if (prevDay < getTodayDate()) {
+      setShowInvalidDate(false);
+    }
+    setShowInvalidDate(false);
     setSelectedDate(prevDay);
     dispatch(getImage(selectedDate));
   };
@@ -46,8 +51,10 @@ const HomePage = props => {
   const navigateNextDayHandler = () => {
     const nextDay = getNextDayDate(selectedDate);
     if (nextDay > getTodayDate()) {
+      setShowInvalidDate(true);
       return;
     }
+    setShowInvalidDate(false);
     setSelectedDate(nextDay);
     dispatch(getImage(selectedDate));
   };
@@ -72,9 +79,7 @@ const HomePage = props => {
     imageTitle = imageDetails.title;
     image = imageDetails.url;
 
-    if (image.includes("youtube")) {
-      invalidImage = "invalid Image";
-    }
+    if (imageDetails.media_type === "video") invalidImage = "invalid Image";
 
     imageDescription = imageDetails.explanation;
   }
@@ -97,6 +102,13 @@ const HomePage = props => {
       <div className="mb-3">
         <h3>{imageTitle}</h3>
       </div>
+      {showInvalidDate ? (
+        <div className="alert alert-danger invalid-date">
+          Date must be between Jun 16, 1995 and Jul 24, 2020.
+        </div>
+      ) : (
+        ""
+      )}
       <div className="row gallery-container">
         <Arrow side="left" handleClick={navigatePrevDayHandler} />
         <div className="img-cont">
@@ -132,7 +144,9 @@ const HomePage = props => {
 
         <Arrow side="right" handleClick={navigateNextDayHandler} />
       </div>
-      <div className="description-container">{imageDescription}</div>
+      <div className="mt-3 description-container text-justify">
+        {imageDescription}
+      </div>
     </section>
   );
 };
