@@ -1,5 +1,3 @@
-# PartnerHero React Assessment
-
 This little project is designed to display images and like images from NASA gallery.
 
 **Live Version:** https://silly-gates-09ce40.netlify.app/
